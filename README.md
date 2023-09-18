@@ -13,39 +13,32 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-# [preview] airflow-tecton
+# Tecton Airflow provider for Apache Airflow
 
-Contains an Apache Airflow provider that allows you to author Tecton workflows inside Airflow.
+This package contains operators, a sensor and a hook that integrate Tecton into Apache Airflow.
 
 Two basic capabilities are supported:
 1) Submitting materialization jobs
 2) Waiting for Feature View/Feature Service data to materialize.
 
-## Changelog
+`TectonSensor` waits for Feature View/Feature Service data to materialize.
+`TectonTriggerOperator` lauches a Tecton job.
+`TectonJobOperator` lauches a Tecton job and waits for its completion.
+`TectonFeatureTableTriggerOperator` launches a Tecton Feature Table ingestion job.
+`TectonFeatureTableJobOperator` launches a Tecton Feature Table ingestion job and waits for its completion.
 
-- 0.1.0 Added 2 new operators to support triggering Feature Table ingestion jobs 
+# Installation
 
-- 0.0.3 Added support for `allow_overwrite` setting in the operators
+You can install this package via `pip install airflow-provider-tecton`. Note that this requires `apache-airflow>=2.0`.
 
-- 0.0.2 Removed type annotations that caused compatibility issues with Airflow versions below 2.4.
+# Configuration
 
-- 0.0.1 Initial release
+This provider uses operators that interface with Tecton's API and requires you set up Airflow Connection for Tecton. Most of the Connection config fields will be left blank. Configure the following fields:
 
-# Installation and Configuration
-
-## Installation
-
-You can install this package via `pip install airflow-tecton`. Note that this requires `apache-airflow>=2.0`.
-
-For a deployed environment, add `airflow-tecton` to your `requirements.txt` or wherever you configure installed packages.
-
-You can confirm a successful installation by running `airflow providers list`, which should show `airflow-tecton` in the list.
-
-## Configuration
-
-This provider uses operators that interface with Tecton's API, thus it requires you set up Airflow to connect to Tecton.
-
-You can add a new connection by going to `Connections` under the `Admin` tab in the Airflow UI. From there, hit the `+` button and select `Tecton` in the connection type dropdown. From there, you can configure the connection name, Tecton URL, and Tecton API key. Note that the default connection name is `tecton_default`, so we recommend starting with this as a connection name to minimize configuration.
+ - `Conn Id`:`tecton_default`
+ - `Conn Type`:`Tecton`
+ - `Host`:`https://your-tecton-url.tecton.ai`
+ - `password`:`your-tecton-api-key`
 
 # Usage
 
@@ -175,3 +168,8 @@ Run `python -m pytest tests/` in the repo root.
 
 # License
 This is licensed with the Apache 2.0 License.
+
+# Issues
+Please submit issues and pull requests in our official repo: https://github.com/tecton-ai/airflow-provider-tecton
+
+Tecton would be happy to hear from you. Please email any feedback nacosta@tecton.ai.
