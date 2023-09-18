@@ -59,3 +59,10 @@ repos:
           - pytest
           - apache-airflow>=2.0
           - requests-mock
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.4.2
+    hooks:
+      - id: forbid-crlf
+      - id: remove-crlf
+      - id: forbid-tabs
+      - id: remove-tabs
