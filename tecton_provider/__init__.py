@@ -14,8 +14,8 @@
 def get_provider_info():
     return {
         "package-name": "airflow-tecton",
-        "name": "Apache Airflow Providers Tecton",
-        "description": "Apache Airflow Providers for Tecton.",
+        "name": "Tecton Airflow provider",
+        "description": "Apache Airflow provider for Tecton.",
         "hook-class-names": ["airflow_tecton.hooks.tecton_hook.TectonHook"],
         "connection-types": [
             {
@@ -23,8 +23,9 @@ def get_provider_info():
                 "hook-class-name": "airflow_tecton.hooks.tecton_hook.TectonHook",
             }
         ],
-        "versions": ["0.0.1"],  # Required
-    }
+        "versions": ["0.0.2"],  # Required
+        "extra-links": ["tecton_provider.operators.extra_links.RegistryLink"] 
+   }
 
 
 from airflow_tecton.operators.tecton_job_operator import TectonJobOperator

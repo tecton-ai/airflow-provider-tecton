@@ -18,9 +18,9 @@ from typing import Any, Callable, Collection, List, Mapping, Sequence, Union
 
 from airflow.models import BaseOperator
 
-from airflow_tecton.hooks.tecton_hook import TectonHook
-from airflow_tecton.operators.df_utils import ingest_feature_table_with_pandas_df
-
+from tecton_provider.hooks.tecton_hook import TectonHook
+from tecton_provider.operators.df_utils import ingest_feature_table_with_pandas_df
+from tecton_provider.operators.extra_links import RegistryLink
 
 class TectonFeatureTableTriggerOperator(BaseOperator):
     """
@@ -32,6 +32,8 @@ class TectonFeatureTableTriggerOperator(BaseOperator):
     Use this if you have unpredictably arriving data but want Tecton
     to manage retries of jobs.
     """
+
+    operator_extra_links = (RegistryLink(),)
 
     template_fields: Sequence[str] = ("templates_dict", "op_args", "op_kwargs")
     template_fields_renderers = {"templates_dict": "json", "op_args": "py", "op_kwargs": "py"}

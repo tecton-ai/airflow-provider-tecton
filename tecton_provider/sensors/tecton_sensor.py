@@ -17,7 +17,7 @@ from typing import Sequence, Union, Optional
 
 from airflow.sensors.base import BaseSensorOperator
 
-from airflow_tecton.hooks.tecton_hook import TectonHook
+from tecton_provider.hooks.tecton_hook import TectonHook
 
 
 class TectonSensor(BaseSensorOperator):
