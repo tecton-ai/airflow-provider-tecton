@@ -22,8 +22,8 @@ Two basic capabilities are supported:
 2) Waiting for Feature View/Feature Service data to materialize.
 
 `TectonSensor` waits for Feature View/Feature Service data to materialize.
-`TectonTriggerOperator` lauches a Tecton job.
-`TectonJobOperator` lauches a Tecton job and waits for its completion.
+`TectonTriggerOperator` launches a Tecton job.
+`TectonJobOperator` launches a Tecton job and waits for its completion.
 `TectonFeatureTableTriggerOperator` launches a Tecton Feature Table ingestion job.
 `TectonFeatureTableJobOperator` launches a Tecton Feature Table ingestion job and waits for its completion.
 
