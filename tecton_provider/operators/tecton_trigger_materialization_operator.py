@@ -1,4 +1,4 @@
-# Copyright 2022 Tecton, Inc.
+ Copyright 2022 Tecton, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,10 +21,10 @@ from typing import Union
 from airflow.models import BaseOperator
 
 from tecton_provider.hooks.tecton_hook import TectonHook
-from tecton_provider.operators.extra_links import RegistryLink\
+from tecton_provider.operators.extra_links import RegistryLink
 
 
-class TectonTriggerOperator(BaseOperator):
+class TectonTriggerMaterializationOperator(BaseOperator):
     """
     An Airflow operator that kicks off a Tecton job, and does not wait
     for its completion. If the latest job with the same params is in
