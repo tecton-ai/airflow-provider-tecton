@@ -20,8 +20,8 @@ from unittest.mock import patch, MagicMock, Mock
 
 from airflow.utils.context import Context
 
-from airflow_tecton.operators.tecton_feature_table_job_operator import TectonFeatureTableJobOperator
-from airflow_tecton.operators.tecton_job_operator import (
+from tecton_provider.operators.tecton_feature_table_job_operator import TectonFeatureTableJobOperator
+from tecton_provider.operators.tecton_job_operator import (
     TectonJobOperator,
 )
 

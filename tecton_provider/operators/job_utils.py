@@ -16,7 +16,7 @@ import pprint
 import time
 from typing import Optional
 
-from airflow_tecton.hooks.tecton_hook import TectonHook
+from tecton_provider.hooks.tecton_hook import TectonHook
 
 
 def wait_until_completion(hook: TectonHook,

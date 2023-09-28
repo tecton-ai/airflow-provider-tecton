@@ -90,8 +90,8 @@ If a Data Source input to the Feature View has `data_delay` set, then that delay
 ## Materialization Job Submission
 
 There are two methods available to submit materialization jobs:
-1) [TectonTriggerOperator](./airflow_tecton/operators/tecton_trigger_operator.py): This triggers a materialization job for a Feature View. Tecton will retry any failing jobs automatically. Note that completion of this operator only means submission succeeded. To wait for completion, you must combine this with `TectonSensor`.
-2) [TectonJobOperator](./airflow_tecton/operators/tecton_job_operator.py): This triggers a materialization job for a Feature View with no retries. Additionally, when this operator is terminated, it will make a best effort to clean up the execution of the materialization job. Using this operator allows you to use standard Airflow keyword arguments to configure retry behavior. Additionally, this operator is synchronous, meaning that when the operator has succeeded, the underlying job has succeeded.
+1) [TectonTriggerOperator](./tecton_provider/operators/tecton_trigger_operator.py): This triggers a materialization job for a Feature View. Tecton will retry any failing jobs automatically. Note that completion of this operator only means submission succeeded. To wait for completion, you must combine this with `TectonSensor`.
+2) [TectonJobOperator](./tecton_provider/operators/tecton_job_operator.py): This triggers a materialization job for a Feature View with no retries. Additionally, when this operator is terminated, it will make a best effort to clean up the execution of the materialization job. Using this operator allows you to use standard Airflow keyword arguments to configure retry behavior. Additionally, this operator is synchronous, meaning that when the operator has succeeded, the underlying job has succeeded.
 
 Both of these require the following arguments:
 1) workspace - the workspace name of the Feature View you intend to materialize
@@ -104,7 +104,7 @@ The time interval of the materialization job is configured automatically using A
 #### Example Usage
 
 ```python
-from airflow_tecton import TectonJobOperator, TectonTriggerOperator
+from tecton_provider import TectonJobOperator, TectonTriggerOperator
 
 TectonJobOperator(
     task_id="tecton_job",
@@ -127,14 +127,14 @@ TectonTriggerOperator(
 
 ## Waiting For Materialization
 
-### [TectonSensor](./airflow_tecton/sensors/tecton_sensor.py)
+### [TectonSensor](./tecton_provider/sensors/tecton_sensor.py)
 
 This enables you to wait for Materialization to complete for both Feature Views and Feature Services. Common uses are for monitoring as well as kicking off a training job after daily materialization completes.
 
 
 #### Example Usage
 ```python
-from airflow_tecton import TectonSensor
+from tecton_provider import TectonSensor
 
 TectonSensor(
     task_id="wait_for_fs_online",
@@ -155,7 +155,7 @@ TectonSensor(
 
 # Examples
 
-See [example dags here](./airflow_tecton/example_dags).
+See [example dags here](./tecton_provider/example_dags).
 
 # Development
 ## Pre-commit

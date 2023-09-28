@@ -17,7 +17,7 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 
-from airflow_tecton.sensors.tecton_sensor import TectonSensor
+from tecton_provider.sensors.tecton_sensor import TectonSensor
 
 WORKSPACE = "my_workspace"
 FEATURE_SERVICE = "my_feature_service"

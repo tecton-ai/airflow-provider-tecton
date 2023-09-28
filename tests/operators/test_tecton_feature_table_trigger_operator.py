@@ -21,8 +21,8 @@ from unittest.mock import patch
 
 from airflow.utils.context import Context
 
-from airflow_tecton.operators.tecton_feature_table_trigger_operator import TectonFeatureTableTriggerOperator
-from airflow_tecton.operators.tecton_trigger_operator import (
+from tecton_provider.operators.tecton_feature_table_trigger_operator import TectonFeatureTableTriggerOperator
+from tecton_provider.operators.tecton_trigger_operator import (
     TectonTriggerOperator,
 )
 

@@ -17,5 +17,3 @@ testpaths = [
 profile = "black"
 multi_line_output = 3
 
-[project.entry-points.apache_airflow_provider]
-provider_info = "tecton_provider.__init__:get_provider_info"

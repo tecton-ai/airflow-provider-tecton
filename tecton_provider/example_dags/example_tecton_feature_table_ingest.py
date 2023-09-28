@@ -18,8 +18,8 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 
-from airflow_tecton.operators.tecton_feature_table_trigger_ingest_operator import TectonFeatureTableTriggerIngestOperator
-from airflow_tecton.sensors.tecton_sensor import TectonSensor
+from tecton_provider.operators.tecton_feature_table_trigger_ingest_operator import TectonFeatureTableTriggerIngestOperator
+from tecton_provider.sensors.tecton_sensor import TectonSensor
 
 WORKSPACE = "my_workspace"
 FEATURE_VIEW = "my_feature_view"

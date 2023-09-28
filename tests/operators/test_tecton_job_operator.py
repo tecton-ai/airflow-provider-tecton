@@ -15,7 +15,7 @@ from datetime import datetime
 import unittest
 from unittest.mock import patch, MagicMock, Mock
 
-from airflow_tecton.operators.tecton_job_operator import (
+from tecton_provider.operators.tecton_job_operator import (
     TectonJobOperator,
 )
 

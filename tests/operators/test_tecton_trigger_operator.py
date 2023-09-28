@@ -16,7 +16,7 @@ import unittest
 from unittest.mock import MagicMock
 from unittest.mock import patch
 
-from airflow_tecton.operators.tecton_trigger_operator import (
+from tecton_provider.operators.tecton_trigger_operator import (
     TectonTriggerOperator,
 )
 

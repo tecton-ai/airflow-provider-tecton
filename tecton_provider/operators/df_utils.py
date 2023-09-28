@@ -20,7 +20,7 @@ import requests
 from airflow.utils.context import context_merge, Context
 from airflow.utils.operator_helpers import KeywordParameters
 
-from airflow_tecton.hooks.tecton_hook import TectonHook
+from tecton_provider.hooks.tecton_hook import TectonHook
 
 
 def upload_df_pandas(upload_url: str, df: pd.DataFrame):

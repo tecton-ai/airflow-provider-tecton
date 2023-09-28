@@ -15,8 +15,8 @@ import datetime
 import unittest
 from unittest.mock import patch, MagicMock, Mock
 
-from airflow_tecton.operators.tecton_trigger_operator import TectonTriggerOperator
-from airflow_tecton.sensors.tecton_sensor import TectonSensor
+from tecton_provider.operators.tecton_trigger_operator import TectonTriggerOperator
+from tecton_provider.sensors.tecton_sensor import TectonSensor
 
 
 class TestTectonSensor(unittest.TestCase):
