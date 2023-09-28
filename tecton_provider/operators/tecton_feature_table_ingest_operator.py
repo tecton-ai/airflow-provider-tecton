@@ -22,7 +22,7 @@ from tecton_provider.hooks.tecton_hook import TectonHook
 from tecton_provider.operators.df_utils import ingest_feature_table_with_pandas_df
 from tecton_provider.operators.extra_links import RegistryLink
 
-class TectonFeatureTableTriggerIngestOperator(BaseOperator):
+class TectonFeatureTableIngestOperator(BaseOperator):
     """
     An Airflow operator that kicks off a Tecton Feature Table ingestion job,
     and does not wait for its completion.

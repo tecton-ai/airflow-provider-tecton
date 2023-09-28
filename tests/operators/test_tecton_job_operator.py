@@ -56,7 +56,7 @@ class TestTectonJobOperator(unittest.TestCase):
     }
 
     @patch("time.sleep", return_value=None)
-    @patch("airflow_tecton.operators.tecton_job_operator.TectonHook.create")
+    @patch("tecton_provider.operators.tecton_job_operator.TectonHook.create")
     def test_execute(self, mock_create, mock_sleep):
         mock_hook = MagicMock()
         mock_create.return_value = mock_hook

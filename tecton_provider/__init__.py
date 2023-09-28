@@ -32,5 +32,5 @@ def get_provider_info():
 
 
 from tecton_provider.operators.tecton_job_operator import TectonJobOperator
-from tecton_provider.operators.tecton_trigger_operator import TectonTriggerOperator
+from tecton_provider.operators.tecton_materialization_operator import TectonMaterializationOperator
 from tecton_provider.sensors.tecton_sensor import TectonSensor

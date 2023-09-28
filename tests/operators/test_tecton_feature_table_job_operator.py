@@ -51,7 +51,7 @@ class TestTectonFeatureTableJobOperator(unittest.TestCase):
     }
 
     @patch('requests.put', side_effect=mock_requests_put)
-    @patch("airflow_tecton.operators.tecton_trigger_operator.TectonHook.create")
+    @patch("tecton_provider.operators.tecton_materialization_operator.TectonHook.create")
     def test_execute_with_df_generator(self, mock_create, mock_put):
         def df_generator(a, b, c=None, d=None):
             assert a == 1

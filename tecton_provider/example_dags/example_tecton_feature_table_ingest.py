@@ -18,7 +18,7 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 
-from tecton_provider.operators.tecton_feature_table_trigger_ingest_operator import TectonFeatureTableTriggerIngestOperator
+from tecton_provider.operators.tecton_feature_table_ingest_operator import TectonFeatureTableIngestOperator
 from tecton_provider.sensors.tecton_sensor import TectonSensor
 
 WORKSPACE = "my_workspace"
@@ -55,7 +55,7 @@ with DAG(
     process_hive_data = BashOperator(
         task_id="process_hive_data", bash_command='echo "hive data processed!"'
     )
-    tecton_ingest = TectonFeatureTableTriggerIngestOperator(
+    tecton_ingest = TectonFeatureTableIngestOperator(
         task_id="tecton_trigger_feature_table_ingest",
         workspace=WORKSPACE,
         feature_view=FEATURE_VIEW,

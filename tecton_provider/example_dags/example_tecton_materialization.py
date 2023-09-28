@@ -17,14 +17,14 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.bash import BashOperator
 
-from tecton_provider.operators.tecton_trigger_materialization_operator import TectonTriggerMaterializationOperator
+from tecton_provider.operators.tecton_materialization_operator import TectonMaterializationOperator
 from tecton_provider.sensors.tecton_sensor import TectonSensor
 
 WORKSPACE = "my_workspace"
 FEATURE_VIEW = "my_batch_feature_view"
 
 with DAG(
-    dag_id="example_tecton_trigger_materialziaion",
+    dag_id="example_tecton_materialziaion",
     default_args={"retries": 3},
     description=textwrap.dedent(
         """
@@ -45,8 +45,8 @@ with DAG(
     process_hive_data = BashOperator(
         task_id="process_hive_data", bash_command='echo "hive data processed!"'
     )
-    tecton_materialization = TectonTriggerMaterializationOperator(
-        task_id="trigger_tecton_materialization",
+    tecton_materialization = TectonMaterializationOperator(
+        task_id="trigger_materialization",
         workspace=WORKSPACE,
         feature_view=FEATURE_VIEW,
         online=True,

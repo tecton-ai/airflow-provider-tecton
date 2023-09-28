@@ -21,9 +21,9 @@ from unittest.mock import patch
 
 from airflow.utils.context import Context
 
-from tecton_provider.operators.tecton_feature_table_trigger_operator import TectonFeatureTableTriggerOperator
-from tecton_provider.operators.tecton_trigger_operator import (
-    TectonTriggerOperator,
+from tecton_provider.operators.tecton_feature_table_ingest_operator import TectonFeatureTableIngestOperator
+from tecton_provider.operators.tecton_materialization_operator import (
+    TectonMaterializationOperator,
 )
 
 
@@ -40,12 +40,12 @@ def mock_requests_put(*args, **kwargs):
     return resp
 
 
-class TestTectonFeatureTableTriggerOperator(unittest.TestCase):
+class TestTectonFeatureTableIngestOperator(unittest.TestCase):
     JOB = {"job": {"id": "abc"}}
     SUCCESS_JOB = {"id": "cba", "state": "success"}
 
     @patch('requests.put', side_effect=mock_requests_put)
-    @patch("airflow_tecton.operators.tecton_trigger_operator.TectonHook.create")
+    @patch("tecton_provider.operators.tecton_materialization_operator.TectonHook.create")
     def test_execute_with_df_generator(self, mock_create, mock_put):
         def df_generator(a, b, c=None, d=None):
             assert a == 1
@@ -63,7 +63,7 @@ class TestTectonFeatureTableTriggerOperator(unittest.TestCase):
         mock_hook.get_dataframe_info.return_value = {"df_path": "df_path", "signed_url_for_df_upload": "upload_url"}
         mock_hook.ingest_dataframe.return_value = self.JOB
 
-        operator = TectonFeatureTableTriggerOperator(
+        operator = TectonFeatureTableIngestOperator(
             task_id="abc",
             workspace="prod",
             feature_view="fv",

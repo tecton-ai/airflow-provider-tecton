@@ -10,7 +10,7 @@ class RegistryLink(BaseOperatorLink):
         """Get link to registry page."""
 
         return (
-            f"https://registry.astronomer.io/providers/airflow-provider-fivetran-async/versions/"
+            f"https://registry.astronomer.io/providers/airflow-provider-tecton/versions/"
             f"{__version__}/modules/{operator.operator_name}"
         )
 

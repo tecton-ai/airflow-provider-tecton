@@ -24,7 +24,7 @@ from tecton_provider.hooks.tecton_hook import TectonHook
 from tecton_provider.operators.extra_links import RegistryLink
 
 
-class TectonTriggerMaterializationOperator(BaseOperator):
+class TectonMaterializationOperator(BaseOperator):
     """
     An Airflow operator that kicks off a Tecton job, and does not wait
     for its completion. If the latest job with the same params is in

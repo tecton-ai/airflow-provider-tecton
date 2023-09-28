@@ -16,23 +16,23 @@ import unittest
 from unittest.mock import MagicMock
 from unittest.mock import patch
 
-from tecton_provider.operators.tecton_trigger_operator import (
-    TectonTriggerOperator,
+from tecton_provider.operators.tecton_materialization_operator import (
+    TectonMaterializationOperator,
 )
 
 
-class TestTectonTriggerOperator(unittest.TestCase):
+class TestTectonMaterializationOperator(unittest.TestCase):
     JOB = {"job": {"id": "abc"}}
     SUCCESS_JOB = {"id": "cba", "state": "success"}
 
-    @patch("airflow_tecton.operators.tecton_trigger_operator.TectonHook.create")
+    @patch("tecton_provider.operators.tecton_materialization_operator.TectonHook.create")
     def test_execute(self, mock_create):
         mock_hook = MagicMock()
         mock_create.return_value = mock_hook
         mock_hook.submit_materialization_job.return_value = self.JOB
         mock_hook.find_materialization_job.return_value = None
 
-        operator = TectonTriggerOperator(
+        operator = TectonMaterializationOperator(
             task_id="abc",
             workspace="prod",
             feature_view="fv",
@@ -43,13 +43,13 @@ class TestTectonTriggerOperator(unittest.TestCase):
         )
         self.assertEqual(["abc"], operator.execute(None))
 
-    @patch("airflow_tecton.operators.tecton_trigger_operator.TectonHook.create")
+    @patch("tecton_provider.operators.tecton_materialization_operator.TectonHook.create")
     def test_execute_existing_job(self, mock_create):
         mock_hook = MagicMock()
         mock_create.return_value = mock_hook
         mock_hook.find_materialization_job.return_value = self.SUCCESS_JOB
 
-        operator = TectonTriggerOperator(
+        operator = TectonMaterializationOperator(
             task_id="abc",
             workspace="prod",
             feature_view="fv",
@@ -61,14 +61,14 @@ class TestTectonTriggerOperator(unittest.TestCase):
         self.assertEqual(["cba"], operator.execute(None))
         assert mock_hook.submit_materialization_job.call_count == 0
 
-    @patch("airflow_tecton.operators.tecton_trigger_operator.TectonHook.create")
+    @patch("tecton_provider.operators.tecton_materialization_operator.TectonHook.create")
     def test_execute_existing_job_with_overwrite(self, mock_create):
         mock_hook = MagicMock()
         mock_create.return_value = mock_hook
         mock_hook.submit_materialization_job.return_value = self.JOB
         mock_hook.find_materialization_job.return_value = self.SUCCESS_JOB
 
-        operator = TectonTriggerOperator(
+        operator = TectonMaterializationOperator(
             task_id="abc",
             workspace="prod",
             feature_view="fv",
