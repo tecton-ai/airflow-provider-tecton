@@ -21,7 +21,6 @@ from airflow.models import BaseOperator
 
 from tecton_provider.hooks.tecton_hook import TectonHook
 from tecton_provider.operators.job_utils import wait_until_completion, kill_job
-from tecton_provider.operators.extra_links import RegistryLink
 
 class TectonJobOperator(BaseOperator):
     """
@@ -31,8 +30,6 @@ class TectonJobOperator(BaseOperator):
 
     Use this if you want to submit a Tecton job via Airflow and control retries via Airflow. Each attempt of this operator creates 1 job.
     """
-
-    operator_extra_links = (RegistryLink(),)
 
     template_fields: Sequence[str] = ("start_time", "end_time")
 

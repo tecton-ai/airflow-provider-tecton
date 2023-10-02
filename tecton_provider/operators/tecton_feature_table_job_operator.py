@@ -20,7 +20,6 @@ from airflow.utils.context import Context
 from tecton_provider.hooks.tecton_hook import TectonHook
 from tecton_provider.operators.df_utils import ingest_feature_table_with_pandas_df
 from tecton_provider.operators.job_utils import wait_until_completion, kill_job
-from tecton_provider.operators.extra_links import RegistryLink
 
 
 class TectonFeatureTableJobOperator(BaseOperator):
@@ -31,8 +30,6 @@ class TectonFeatureTableJobOperator(BaseOperator):
     Use this if you want to submit a Tecton job via Airflow and control
     retries via Airflow. Each attempt of this operator creates 1 job.
     """
-
-    operator_extra_links = (RegistryLink(),)
 
     template_fields: Sequence[str] = ("templates_dict", "op_args", "op_kwargs")
     template_fields_renderers = {"templates_dict": "json", "op_args": "py", "op_kwargs": "py"}

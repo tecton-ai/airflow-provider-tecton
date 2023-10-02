@@ -27,7 +27,6 @@ def get_provider_info():
             }
         ],
         "versions": ["0.0.2"],  # Required
-        "extra-links": ["tecton_provider.operators.extra_links.RegistryLink"] 
    }
 
 
