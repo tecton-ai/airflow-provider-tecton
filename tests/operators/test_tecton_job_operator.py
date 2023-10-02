@@ -80,7 +80,7 @@ class TestTectonJobOperator(unittest.TestCase):
         operator.execute(None)
 
     @patch("time.sleep", return_value=None)
-    @patch("airflow_tecton.operators.tecton_job_operator.TectonHook.create")
+    @patch("tecton_provider.operators.tecton_job_operator.TectonHook.create")
     def test_execute_cancel_existing(self, mock_create, mock_sleep):
         mock_hook = MagicMock()
         mock_create.return_value = mock_hook
@@ -107,7 +107,7 @@ class TestTectonJobOperator(unittest.TestCase):
         operator.execute(None)
         assert mock_hook.cancel_materialization_job.call_count == 1
 
-    @patch("airflow_tecton.operators.tecton_job_operator.TectonHook.create")
+    @patch("tecton_provider.operators.tecton_job_operator.TectonHook.create")
     def test_execute_existing_success(self, mock_create):
         mock_hook = MagicMock()
         mock_create.return_value = mock_hook
@@ -125,7 +125,7 @@ class TestTectonJobOperator(unittest.TestCase):
         operator.execute(None)
         assert mock_hook.submit_materialization_job.call_count == 0
 
-    @patch("airflow_tecton.operators.tecton_job_operator.TectonHook.create")
+    @patch("tecton_provider.operators.tecton_job_operator.TectonHook.create")
     def test_execute_existing_success_allow_overwrite(self, mock_create):
         mock_hook = MagicMock()
         mock_create.return_value = mock_hook
@@ -149,7 +149,7 @@ class TestTectonJobOperator(unittest.TestCase):
         assert mock_hook.submit_materialization_job.call_count == 1
 
     @patch("time.sleep", return_value=None)
-    @patch("airflow_tecton.operators.tecton_job_operator.TectonHook.create")
+    @patch("tecton_provider.operators.tecton_job_operator.TectonHook.create")
     def test_execute_failed(self, mock_create, mock_time):
         mock_hook = MagicMock()
         mock_create.return_value = mock_hook
@@ -175,7 +175,7 @@ class TestTectonJobOperator(unittest.TestCase):
         self.assertIn("Final job state", str(e.exception))
 
     @patch("time.sleep", return_value=None)
-    @patch("airflow_tecton.operators.tecton_job_operator.TectonHook.create")
+    @patch("tecton_provider.operators.tecton_job_operator.TectonHook.create")
     def test_execute_failed_no_attempts(self, mock_create, mock_time):
         mock_hook = MagicMock()
         mock_create.return_value = mock_hook
@@ -200,7 +200,7 @@ class TestTectonJobOperator(unittest.TestCase):
             operator.execute(None)
         self.assertIn("Final job state", str(e.exception))
 
-    @patch("airflow_tecton.operators.tecton_job_operator.TectonHook.create")
+    @patch("tecton_provider.operators.tecton_job_operator.TectonHook.create")
     def test_on_kill(self, mock_create):
         mock_hook = MagicMock()
         mock_create.return_value = mock_hook
