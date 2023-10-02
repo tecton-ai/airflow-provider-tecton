@@ -20,7 +20,7 @@ from airflow.utils.context import Context
 from tecton_provider.hooks.tecton_hook import TectonHook
 from tecton_provider.operators.df_utils import ingest_feature_table_with_pandas_df
 from tecton_provider.operators.job_utils import wait_until_completion, kill_job
-from tecton_provider.operatiors.extra_links import RegistryLink
+from tecton_provider.operators.extra_links import RegistryLink
 
 
 class TectonFeatureTableJobOperator(BaseOperator):

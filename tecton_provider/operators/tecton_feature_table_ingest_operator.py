@@ -34,7 +34,7 @@ class TectonFeatureTableIngestOperator(BaseOperator):
     """
 
     operator_extra_links = (RegistryLink(),)
-
+    
     template_fields: Sequence[str] = ("templates_dict", "op_args", "op_kwargs")
     template_fields_renderers = {"templates_dict": "json", "op_args": "py", "op_kwargs": "py"}
 
