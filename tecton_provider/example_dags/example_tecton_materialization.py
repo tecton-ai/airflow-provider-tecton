@@ -51,6 +51,9 @@ with DAG(
         feature_view=FEATURE_VIEW,
         online=True,
         offline=True,
+        start_time=datetime.combine(datetime.now() - timedelta(days = 1), datetime.min.time()),
+        end_time=datetime.combine(datetime.now(), datetime.min.time()),
+
     )
     data_ready = TectonSensor(
         task_id="wait_for_data",

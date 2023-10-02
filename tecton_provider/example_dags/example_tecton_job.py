@@ -21,7 +21,7 @@ from tecton_provider.operators.tecton_job_operator import TectonJobOperator
 from tecton_provider.sensors.tecton_sensor import TectonSensor
 
 WORKSPACE = "my_workspace"
-FEATURE_VIEW = "my_stream_feature_view"
+FEATURE_VIEW = "my_feature_view"
 
 with DAG(
     dag_id="example_tecton_job",
@@ -31,9 +31,6 @@ with DAG(
             This example shows a BatchFeatureView with triggered materialization
             where Airflow handles retries. Note that the retry parameters
             used are standard Airflow retries.
-
-            Because this is a StreamFeatureView, the materialization job 
-            is not needed to write to the online store.
 
             TectonSensor is used for online only. 
             Model training can wait for `tecton_job` becuase this
@@ -56,7 +53,7 @@ with DAG(
         task_id="tecton_job",
         workspace=WORKSPACE,
         feature_view=FEATURE_VIEW,
-        online=False,
+        online=True,
         offline=True,
         # retries inherited from default_args
     )
