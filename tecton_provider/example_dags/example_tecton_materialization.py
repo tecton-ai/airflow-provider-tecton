@@ -24,19 +24,18 @@ WORKSPACE = "my_workspace"
 FEATURE_VIEW = "my_batch_feature_view"
 
 with DAG(
-    dag_id="example_tecton_materialziaion",
+    dag_id="example_tecton_materialization",
     default_args={"retries": 3},
     description=textwrap.dedent(
         """
-            This example shows a BatchFeatureView with triggered materialization
+            This example shows a use case where you have a BatchFeatureView with triggered materialization
             where Tecton handles retries.
 
-            A TectonSensor is used to detect when the jobs are complete.
+            Note that because the operator is async, we have to use TectonSensor to detect when the jobs are complete.
 
-            Model training starts when the offline feature store is ready,
-            and a report when the online feature store is up to date. 
-
-            BashOperators are used in place of actual training/reporting operators.
+            In this scenario, we want to kick off a model training when the offline feature store is ready, as well as
+            report when the online feature store is up to date to our monitoring. We use example BashOperators in place
+            of actual training/reporting operators.
     """
     ),
     start_date=datetime(2022, 7, 10),
@@ -45,15 +44,12 @@ with DAG(
     process_hive_data = BashOperator(
         task_id="process_hive_data", bash_command='echo "hive data processed!"'
     )
-    tecton_materialization = TectonMaterializationOperator(
-        task_id="trigger_materialization",
+    tecton_trigger = TectonMaterializationOperator(
+        task_id="materialize_tecton",
         workspace=WORKSPACE,
         feature_view=FEATURE_VIEW,
         online=True,
         offline=True,
-        start_time=datetime.combine(datetime.now() - timedelta(days = 1), datetime.min.time()),
-        end_time=datetime.combine(datetime.now(), datetime.min.time()),
-
     )
     data_ready = TectonSensor(
         task_id="wait_for_data",
@@ -68,5 +64,5 @@ with DAG(
     report_online_done = BashOperator(
         task_id="report_online_done", bash_command='echo "online data ready!"'
     )
-    process_hive_data >> tecton_materialization >> data_ready >> train_model
+    process_hive_data >> tecton_trigger >> data_ready >> train_model
     data_ready >> report_online_done

@@ -17,17 +17,17 @@ __version__ = "0.2.0"
 def get_provider_info():
     return {
         "package-name": "airflow-provider-tecton",
-        "name": "Tecton Airflow provider",
-        "description": "Apache Airflow provider for Tecton.",
-        "hook-class-names": ["airflow_provider_tecton.hooks.tecton_hook.TectonHook"],
+        "name": "Apache Airflow Providers Tecton",
+        "description": "Apache Airflow Providers for Tecton.",
+        "hook-class-names": ["tecton_provider.hooks.tecton_hook.TectonHook"],
         "connection-types": [
             {
                 "connection-type": "tecton",
-                "hook-class-name": "airflow_provider_tecton.hooks.tecton_hook.TectonHook",
+                "hook-class-name": "tecton_provider.hooks.tecton_hook.TectonHook",
             }
         ],
-        "versions": ["0.0.2"],  # Required
-   }
+        "versions": ["0.0.1"],  # Required
+    }
 
 
 from tecton_provider.operators.tecton_job_operator import TectonJobOperator

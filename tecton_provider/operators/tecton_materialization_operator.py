@@ -22,6 +22,7 @@ from airflow.models import BaseOperator
 
 from tecton_provider.hooks.tecton_hook import TectonHook
 
+
 class TectonMaterializationOperator(BaseOperator):
     """
     An Airflow operator that kicks off a Tecton job, and does not wait

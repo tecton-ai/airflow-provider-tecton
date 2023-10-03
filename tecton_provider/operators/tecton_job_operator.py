@@ -22,6 +22,7 @@ from airflow.models import BaseOperator
 from tecton_provider.hooks.tecton_hook import TectonHook
 from tecton_provider.operators.job_utils import wait_until_completion, kill_job
 
+
 class TectonJobOperator(BaseOperator):
     """
     An Airflow operator that launches a Tecton job, and waits for its completion. If the latest job with the same params

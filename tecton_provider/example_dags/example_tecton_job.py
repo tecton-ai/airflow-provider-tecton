@@ -21,26 +21,26 @@ from tecton_provider.operators.tecton_job_operator import TectonJobOperator
 from tecton_provider.sensors.tecton_sensor import TectonSensor
 
 WORKSPACE = "my_workspace"
-FEATURE_VIEW = "my_feature_view"
+FEATURE_VIEW = "my_stream_feature_view"
 
 with DAG(
     dag_id="example_tecton_job",
     default_args={"retries": 3},
     description=textwrap.dedent(
         """
-            This example shows a BatchFeatureView with triggered materialization
+            This example shows a use case where you have a BatchFeatureView with triggered materialization
             where Airflow handles retries. Note that the retry parameters
             used are standard Airflow retries.
 
-            TectonSensor is used for online only. 
-            Model training can wait for `tecton_job` becuase this
-            operator waits for completion.
-            The online reporting part can proceed independently.
+            Because this is a StreamFeatureView, we do not need to use our
+            materialization job to write to the online store.
 
-            Model training starts when the offline feature store is ready, 
-            And a report when the online feature store is up to date. 
+            We use TectonSensor for online only. Note that model training can just wait for `tecton_job` becuase this
+            operator waits for completion. Similarly, the online reporting part can proceed independently.
 
-            BashOperators are used in place of actual training/reporting operators.
+            In this scenario, we want to kick off a model training when the offline feature store is ready, as well as
+            report when the online feature store is up to date to our monitoring. We use example BashOperators in place
+            of actual training/reporting operators.
     """
     ),
     start_date=datetime(2022, 7, 10),
@@ -50,10 +50,10 @@ with DAG(
         task_id="process_hive_data", bash_command='echo "hive data processed!"'
     )
     tecton_job = TectonJobOperator(
-        task_id="tecton_job",
+        task_id="trigger_tecton",
         workspace=WORKSPACE,
         feature_view=FEATURE_VIEW,
-        online=True,
+        online=False,
         offline=True,
         # retries inherited from default_args
     )

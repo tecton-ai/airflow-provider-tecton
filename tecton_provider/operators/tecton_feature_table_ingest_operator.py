@@ -21,6 +21,7 @@ from airflow.models import BaseOperator
 from tecton_provider.hooks.tecton_hook import TectonHook
 from tecton_provider.operators.df_utils import ingest_feature_table_with_pandas_df
 
+
 class TectonFeatureTableIngestOperator(BaseOperator):
     """
     An Airflow operator that kicks off a Tecton Feature Table ingestion job,
