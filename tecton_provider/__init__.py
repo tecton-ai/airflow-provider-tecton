@@ -17,8 +17,8 @@ __version__ = "0.2.0"
 def get_provider_info():
     return {
         "package-name": "airflow-provider-tecton",
-        "name": "Apache Airflow Providers Tecton",
-        "description": "Apache Airflow Providers for Tecton.",
+        "name": "Tecton Airflow provider",
+        "description": "Apache Airflow Provider for Tecton.",
         "hook-class-names": ["tecton_provider.hooks.tecton_hook.TectonHook"],
         "connection-types": [
             {

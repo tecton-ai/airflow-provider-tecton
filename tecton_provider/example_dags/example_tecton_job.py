@@ -21,7 +21,7 @@ from tecton_provider.operators.tecton_job_operator import TectonJobOperator
 from tecton_provider.sensors.tecton_sensor import TectonSensor
 
 WORKSPACE = "my_workspace"
-FEATURE_VIEW = "my_stream_feature_view"
+FEATURE_VIEW = "my_feature_view"
 
 with DAG(
     dag_id="example_tecton_job",
@@ -32,15 +32,12 @@ with DAG(
             where Airflow handles retries. Note that the retry parameters
             used are standard Airflow retries.
 
-            Because this is a StreamFeatureView, we do not need to use our
-            materialization job to write to the online store.
+            We use TectonSensor for online only.
 
-            We use TectonSensor for online only. Note that model training can just wait for `tecton_job` becuase this
-            operator waits for completion. Similarly, the online reporting part can proceed independently.
+            Model training when the offline feature store is ready, as well as
+            Reporting starts when the online feature store is up to date to our monitoring. 
 
-            In this scenario, we want to kick off a model training when the offline feature store is ready, as well as
-            report when the online feature store is up to date to our monitoring. We use example BashOperators in place
-            of actual training/reporting operators.
+            BashOperators are used in place of actual training/reporting operators.
     """
     ),
     start_date=datetime(2022, 7, 10),
@@ -50,7 +47,7 @@ with DAG(
         task_id="process_hive_data", bash_command='echo "hive data processed!"'
     )
     tecton_job = TectonJobOperator(
-        task_id="trigger_tecton",
+        task_id="tecton_job",
         workspace=WORKSPACE,
         feature_view=FEATURE_VIEW,
         online=False,

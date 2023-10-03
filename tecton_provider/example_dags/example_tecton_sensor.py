@@ -26,14 +26,15 @@ with DAG(
     dag_id="example_tecton_sensor",
     description=textwrap.dedent(
         """
-        This example shows a use case where you have a FeatureService with both online and offline materialization.
+        This example shows a FeatureService with both online and offline materialization.
 
-        This example can be adapted to work with Triggered and Scheduled FeatureViews as well, but the assumption is
-        that this is a FeatureService which can have a mix of both.
+        This example can be adapted to work with Triggered and Scheduled FeatureViews as well,
+        a FeatureService which can have a mix of both.
+       
+        Model training starts when the offline feature store is ready,
+        and a report when the online feature store is up to date. 
 
-        In this scenario, we want to kick off a model training when the offline feature store is ready, as well as
-            report when the online feature store is up to date to our monitoring. We use example BashOperators in place
-            of actual training/reporting operators.
+        We use example BashOperators in place of actual training/reporting operators.
     """
     ),
     start_date=datetime(2022, 7, 14),

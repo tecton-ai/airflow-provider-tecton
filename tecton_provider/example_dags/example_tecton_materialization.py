@@ -29,14 +29,16 @@ with DAG(
     description=textwrap.dedent(
         """
             This example shows a use case where you have a BatchFeatureView with triggered materialization
-            where Tecton handles retries.
+            where Tecton handles retries. Note that the retry parameters
+            used are standard Airflow retries.
 
-            Note that because the operator is async, we have to use TectonSensor to detect when the jobs are complete.
+            We use TectonSensor to monitor the offline and online stores.
 
-            In this scenario, we want to kick off a model training when the offline feature store is ready, as well as
-            report when the online feature store is up to date to our monitoring. We use example BashOperators in place
-            of actual training/reporting operators.
-    """
+            Model training when the offline feature store is ready, as well as
+            Reporting starts when the online feature store is up to date to our monitoring.
+
+            BashOperators are used in place of actual training/reporting operators.
+        """
     ),
     start_date=datetime(2022, 7, 10),
     schedule_interval=timedelta(days=1),
@@ -44,7 +46,7 @@ with DAG(
     process_hive_data = BashOperator(
         task_id="process_hive_data", bash_command='echo "hive data processed!"'
     )
-    tecton_trigger = TectonMaterializationOperator(
+    tecton_materialization = TectonMaterializationOperator(
         task_id="materialize_tecton",
         workspace=WORKSPACE,
         feature_view=FEATURE_VIEW,
@@ -64,5 +66,5 @@ with DAG(
     report_online_done = BashOperator(
         task_id="report_online_done", bash_command='echo "online data ready!"'
     )
-    process_hive_data >> tecton_trigger >> data_ready >> train_model
+    process_hive_data >> tecton_materialization >> data_ready >> train_model
     data_ready >> report_online_done
