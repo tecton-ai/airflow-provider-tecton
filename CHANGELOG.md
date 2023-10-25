@@ -3,6 +3,9 @@
 ## Upcoming 
 * (please add here)
 
+## 0.1.2 - 2023-10-25
+tagged release for pypi upload
+
 ## 0.1.1 - 2023-9-18
 Renamed and rewrote docs to conform to Airflow provider conventions for release on Astronomer registry
 
